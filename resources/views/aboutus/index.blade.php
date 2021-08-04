@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Artikel Kategori Kategori
+    About Us
 @endsection
 
 @section('content')
@@ -11,18 +11,18 @@
           <h1 class="mt-4">@yield('title')</h1>
           <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-              <li class="breadcrumb-item active">Tables</li>
+              <li class="breadcrumb-item active">@yield('title')</li>
           </ol>
           <div class="card">
             <div class="card-header">
               Data @yield('title')
             </div>
             <br>
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="get" action="{{ route('artikelkat.index') }}">
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
               <div class="input-group">
-                <a href =" {{ route('artikelkat.create') }} " class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-plus"></i></a>  
-                <input class="form-control" name="search" value="{{ $request->search }}" type="text" placeholder="Cari Nama Kategori " aria-label="Cari Nama Kategori " aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
+                <a href ="{{ route('aboutus.create') }}" class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-plus"></i></a>  
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
               </div>
             </form>
             <br>
@@ -44,19 +44,23 @@
                   <thead>
                     <tr>
                       <th scope="col">No</th>
-                      <th scope="col">Nama Kategori</th>
+                      <th scope="col">Bab</th>
+                      <th scope="col">Judul</th>
+                      <th scope="col">Isi</th>
                       <th scope="col">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($artikelkats as $key => $a)
+                    <?php $no = 1;  ?>
+                    @foreach ($about_us as $key => $about)
                       <tr>
-                        {{-- firstItem digunakan untuk mengurutkan nomor --}}
-                        <th scope="row">{{ $artikelkats->firstItem() + $key }}</th>
-                        <td>{{ $a->kategori }}</td>
+                        <th scope="row">{{ $about_us->firstItem() + $key }}</th>
+                        <td>{{ $about->bab }}</td>
+                        <td>{{ $about->judul }}</td>
+                        <td>{{ $about->isi }}</td>
                         <td>
-                          <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('artikelkat.destroy', $a->id) }}" method="POST">
-                            <a href="{{ route('artikelkat.edit', $a->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                          <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('aboutus.destroy', $about->id) }}" method="POST">
+                            <a href="{{ route('aboutus.edit', $about->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
@@ -66,7 +70,7 @@
                     @endforeach
                   </tbody>
                 </table>
-                {{$artikelkats->links()}}
+                {{$about_us->links()}}
             </div>
           </div>
       </div>

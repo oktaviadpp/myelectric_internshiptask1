@@ -30,6 +30,10 @@ Route::resource('artikelkat', ArtikelKatController::class);
 Route::resource('artikel', ArtikelController::class);
 //MENAMPILKAN ADMIN SLIDE SHOW / SLIDER
 Route::resource('slider', SliderController::class);
+//MENAMPILKAN ADMIN MEDIA SOSIAL
+Route::resource('sosmed', SosmedController::class);
+//MENAMPILKAN ADMIN ABOUT US
+Route::resource('aboutus', AboutUsController::class);
 
 
 //MENAMPILKAN USER INDEX
@@ -44,6 +48,9 @@ Route::get('tv', 'UserController@tv');
 Route::get('kulkas', 'UserController@kulkas');
 //MENAMPILKAN USER audio
 Route::get('audio', 'UserController@audio');
+//MENAMPILKAN USER ABOUT
+Route::get('/about', [App\Http\Controllers\UserController::class, 'about'])->name('about');
+
 //MENAMPILKAN USER artikel
 // Route::resource('artikels', UserController::class);
 // Route::get('artikels/{id}', 'UserController@artikels');
@@ -56,3 +63,9 @@ Route::get('/detailartikel/{id}', [App\Http\Controllers\UserController::class, '
 
 //MENAMPILKAN USER DETAIL PRODUK
 Route::get('/detailproduk/{id}', [App\Http\Controllers\UserController::class, 'produks'])->name('detailproduk');
+//MENAMPILKAN USER ADD TO CART
+Route::post('add_to_cart', 'UserController@addToCart');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\UserController::class, 'index'])->name('home');

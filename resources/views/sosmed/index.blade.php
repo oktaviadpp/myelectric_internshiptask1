@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Artikel Kategori Kategori
+    Sosial Media
 @endsection
 
 @section('content')
@@ -11,17 +11,17 @@
           <h1 class="mt-4">@yield('title')</h1>
           <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-              <li class="breadcrumb-item active">Tables</li>
+              <li class="breadcrumb-item active">@yield('title')</li>
           </ol>
           <div class="card">
             <div class="card-header">
               Data @yield('title')
             </div>
             <br>
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="get" action="{{ route('artikelkat.index') }}">
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" method="get" action="{{ route('sosmed.index') }}">
               <div class="input-group">
-                <a href =" {{ route('artikelkat.create') }} " class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-plus"></i></a>  
-                <input class="form-control" name="search" value="{{ $request->search }}" type="text" placeholder="Cari Nama Kategori " aria-label="Cari Nama Kategori " aria-describedby="btnNavbarSearch" />
+                <a href =" {{ route('sosmed.create') }} " class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-plus"></i></a>  
+                <input class="form-control" name="search" value="{{ $request->search }}" type="text" placeholder="Cari Nama Artikel" aria-label="Cari Nama Artikel" aria-describedby="btnNavbarSearch" />
                 <button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
               </div>
             </form>
@@ -44,29 +44,32 @@
                   <thead>
                     <tr>
                       <th scope="col">No</th>
-                      <th scope="col">Nama Kategori</th>
+                      <th scope="col">Nama Medos</th>
+                      <th scope="col">Icon</th>
+                      <th scope="col">Link</th>
                       <th scope="col">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($artikelkats as $key => $a)
+                    @foreach ($sosmed as $key => $sos)
                       <tr>
                         {{-- firstItem digunakan untuk mengurutkan nomor --}}
-                        <th scope="row">{{ $artikelkats->firstItem() + $key }}</th>
-                        <td>{{ $a->kategori }}</td>
+                        <th scope="row">{{ $sosmed->firstItem() + $key }}</th>
+                        <td>{{ $sos->nama }}</td>
+                        <td>{{ $sos->icon }}</td>
+                        <td>{{ $sos->link }}</td>
                         <td>
-                          <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('artikelkat.destroy', $a->id) }}" method="POST">
-                            <a href="{{ route('artikelkat.edit', $a->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
+                          <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="" method="POST">
+                            <a href="{{ route('sosmed.edit', $sos->id) }}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
                             @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            
                         </form>
                         </td>
                       </tr>
                     @endforeach
                   </tbody>
                 </table>
-                {{$artikelkats->links()}}
+                {{$sosmed->links()}}
             </div>
           </div>
       </div>

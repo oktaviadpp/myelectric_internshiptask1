@@ -21,4 +21,10 @@ class Produk extends Model
     {
         return $this->belongsTo(Brand::class, 'id_brand');
     }
+
+    //RELASI dengan Model Cart untuk menampilkan nama produk di keranjang belanja
+    public function keranjang()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

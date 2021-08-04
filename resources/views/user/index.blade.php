@@ -52,6 +52,9 @@
 	<link rel="stylesheet" href="/css/user/css/icomoon.css">
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="/css/user/css/bootstrap.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 	<!-- Flexslider  -->
 	<link rel="stylesheet" href="/css/user/css/flexslider.css">
@@ -78,6 +81,7 @@
 	<div class="fh5co-loader"></div>
 	
 	<div id="page">
+		
 	<nav class="fh5co-nav" role="navigation">
 		<div class="container">
 			<div class="row">
@@ -89,7 +93,7 @@
 						<li class="has-dropdown">
 							<a href="{{ route('index') }}">Home</a>
 						</li>
-						<li><a href="about.html">About</a></li>
+						<li><a href="about">About</a></li>
 						<li class="has-dropdown">
 							<a href="">Kategori</a>
 							<ul class="dropdown">
@@ -101,6 +105,27 @@
 							</ul>
 						</li>
 						<li><a href="contact.html">Contact</a></li>
+						<li class="has-dropdown">
+							<a href=""><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
+							<ul class="dropdown">
+								<li>
+									<a class="dropdown-item" href="{{ route('logout') }}"
+								   onclick="event.preventDefault();
+												 document.getElementById('logout-form').submit();">
+									{{ __('Logout') }}
+									</a>
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+										@csrf
+									</form>
+								</li>
+								<li>
+									<a href="" data-toggle="modal" data-target="#myModal">
+										Cart
+									</a>
+									
+								</li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
@@ -114,12 +139,55 @@
 						    </div>
 						</li>
 						<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
+						
 					</ul>
 				</div>
 			</div>
 			
 		</div>
 	</nav>
+  
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">Keranjang Belanja</h4>
+			</div>
+			<div class="modal-body">
+				<div class="p-6 bg-white border-b border-gray-200">
+					<table style="width: 100%">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Nama</th>
+								<th>Jumlah</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php $no=1 ?>
+							@foreach ($cart as $c)
+							@foreach ($c->carts as $cart)
+							{{-- {{ $c }} --}}
+							@if ($cart->id_user == Auth::user()->id) 
+								<th>{{$no++}}</th>
+								<td>{{ $cart->keranjang2->produk }}</td>
+								<td>{{ $cart->quantity }}</td>
+						</tbody>
+						@endif
+						@endforeach
+						@endforeach
+					</table>
+					</div>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<a href="https://bit.ly/3C10Zaf"  type="button"  class="btn btn-primary">Save changes</a>
+			</div>
+		</div>
+		</div>
+	</div>
 	
 	{{-- SLIDE SHOW --}}
 	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -185,7 +253,7 @@
 			<div class="col-md-4">
 				<div class="card" style="width: 100%; min-height: 100%;">
 					<center>
-					<img src="{{ Storage::url('public/gambar/').$art->gambar }}" style="width:100%;" class="card-img-top-center" alt="...">
+					<img src="{{ Storage::url('public/gambar/').$art->gambar }}" style="height:200px; width:100%;" class="card-img-top-center" alt="...">
 					</center>
 					<div class="card-body">
 					  <h5 class="card-title"><b>{{ $art->judul }}</b> <br><br>
@@ -230,62 +298,33 @@
 				</div>
 			</div>
 			{{-- VIDEO --}}
+			{{-- @foreach ($sosmed as $sos) --}}
+			{{-- @forelse ($sosmed as $sos) --}}
+				
+			
 			<center>
-				<iframe width="700" height="315" src="https://www.youtube.com/embed/0-B6_U-ikoc?rel=0&amp;autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+				<iframe width="700" height="315" src="{{ $sosmed->link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+				
 			</center>
+			{{-- @empty
+			@endforelse --}}
+			{{-- @endforeach --}}
 		</div>
 	</div>
 
 	<footer id="fh5co-footer" role="contentinfo" >
 		<div class="container" >
-			<div class="row row-pb-md" >
-				<div class="col-md-4 fh5co-widget">
-					<h3>Shop.</h3>
-					<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">About</a></li>
-						<li><a href="#">Help</a></li>
-						<li><a href="#">Contact</a></li>
-						<li><a href="#">Terms</a></li>
-						<li><a href="#">Meetups</a></li>
-					</ul>
-				</div>
-	
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Shop</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Testimonials</a></li>
-						<li><a href="#">Handbook</a></li>
-						<li><a href="#">Held Desk</a></li>
-					</ul>
-				</div>
-	
-				<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
-					<ul class="fh5co-footer-links">
-						<li><a href="#">Find Designers</a></li>
-						<li><a href="#">Find Developers</a></li>
-						<li><a href="#">Teams</a></li>
-						<li><a href="#">Advertise</a></li>
-						<li><a href="#">API</a></li>
-					</ul>
-				</div>
-			</div>
 	
 			<div class="row copyright">
 				<div class="col-md-12 text-center">
 					<p>
-						<small class="block">&copy; 2018 Free HTML5. All Rights Reserved.</small> 
-						<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://blog.gessato.com/" target="_blank">Gessato</a> &amp; <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
+						<small class="block">&copy; Copyright {{ config('app.name') }}</small> 
 					</p>
 					<p>
 						<ul class="fh5co-social-icons">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-							<li><a href="#"><i class="icon-facebook"></i></a></li>
-							<li><a href="#"><i class="icon-linkedin"></i></a></li>
-							<li><a href="#"><i class="icon-dribbble"></i></a></li>
+							@foreach ($sosmed2 as $sosmed )
+								<a class="btn btn-dark btn-social" href="{{ $sosmed->link }}"><i class="{{ $sosmed->icon }}"></i></a>
+                        	@endforeach
 						</ul>
 					</p>
 				</div>
@@ -316,17 +355,9 @@
 	<!-- Main -->
 	<script src="/css/user/js/main.js"></script>
 	
-	<!-- Optional JavaScript; choose one of the two! -->
-	
-		<!-- Option 1: Bootstrap Bundle with Popper -->
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	
-		<!-- Option 2: Separate Popper and Bootstrap JS -->
-		<!--
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-		-->
-	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 	</body>
 	</html>
 	

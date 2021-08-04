@@ -30,7 +30,16 @@
 						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 							<h2>{{ $produks->produk}}</h2>
 							<p>
-								<a href="#" class="btn btn-primary btn-outline btn-lg">Add to Cart</a>
+								<form action="/add_to_cart" method="POST">
+									@csrf
+									<input type="hidden" name="id_produk" value="{{ $produks->id}}">
+									<input type="hidden" name="id_user" value="{{ Auth::user()->id}}">
+									{{-- TOMBOL increase decrease  --}}
+									<div class="quantity">
+										<input type="number" value="0" name="quantity" >
+									</div><br>
+									<button class="btn btn-primary btn-outline btn-lg">Add to Cart</button>
+								</form>
 							</p>
 						</div>
 					</div>
@@ -87,3 +96,4 @@
 	</div>
 	</div>
 @endsection
+

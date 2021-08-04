@@ -12,7 +12,7 @@
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{ config('app.name') }} | @yield('title') </title>
+	<title>{{ config('app.name') }} </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -52,6 +52,9 @@
 	<link rel="stylesheet" href="/css/user/css/icomoon.css">
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="/css/user/css/bootstrap.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 	<!-- Flexslider  -->
 	<link rel="stylesheet" href="/css/user/css/flexslider.css">
@@ -69,7 +72,7 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-
+	
 	{{-- FONT AWESOME --}}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	</head>
@@ -78,6 +81,7 @@
 	<div class="fh5co-loader"></div>
 	
 	<div id="page">
+		
 	<nav class="fh5co-nav" role="navigation">
 		<div class="container">
 			<div class="row">
@@ -89,7 +93,7 @@
 						<li class="has-dropdown">
 							<a href="{{ route('index') }}">Home</a>
 						</li>
-						<li><a href="about.html">About</a></li>
+						<li><a href="about">About</a></li>
 						<li class="has-dropdown">
 							<a href="">Kategori</a>
 							<ul class="dropdown">
@@ -101,6 +105,27 @@
 							</ul>
 						</li>
 						<li><a href="contact.html">Contact</a></li>
+						<li class="has-dropdown">
+							<a href=""><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
+							<ul class="dropdown">
+								<li>
+									<a class="dropdown-item" href="{{ route('logout') }}"
+								   onclick="event.preventDefault();
+												 document.getElementById('logout-form').submit();">
+									{{ __('Logout') }}
+									</a>
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+										@csrf
+									</form>
+								</li>
+								<li>
+									<a href="" data-toggle="modal" data-target="#myModal">
+										Cart
+									</a>
+									
+								</li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
@@ -114,13 +139,56 @@
 						    </div>
 						</li>
 						<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
+						
 					</ul>
 				</div>
 			</div>
 			
 		</div>
 	</nav>
-	
+  
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">Keranjang Belanja</h4>
+			</div>
+			<div class="modal-body">
+				<div class="p-6 bg-white border-b border-gray-200">
+					<table style="width: 100%">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Nama</th>
+								<th>Jumlah</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php $no=1 ?>
+							@foreach ($cart as $c)
+							@foreach ($c->carts as $cart)
+							{{-- {{ $c }} --}}
+							@if ($cart->id_user == Auth::user()->id) 
+								<th>{{$no++}}</th>
+								<td>{{ $cart->keranjang2->produk }}</td>
+								<td>{{ $cart->quantity }}</td>
+						</tbody>
+						@endif
+						@endforeach
+						@endforeach
+					</table>
+					</div>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button"  class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+		</div>
+	</div>
+
 	<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(/css/user/images/banner.png);">
 		<div class="overlay"></div>
 		<div class="container">
@@ -129,7 +197,6 @@
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
 							<h1> @yield('title')</h1>
-							<h2>Temukan kebutuhan elektronik Anda sesuai kategori</h2>
 						</div>
 					</div>
 				</div>
