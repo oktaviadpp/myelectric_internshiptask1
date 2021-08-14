@@ -1,6 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-202867380-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-202867380-1');
+	</script>
 
 	<!-- Required meta tags -->
     <meta charset="utf-8">
@@ -163,27 +172,28 @@
 								<th>No</th>
 								<th>Nama</th>
 								<th>Jumlah</th>
+								<th>Order</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php $no=1 ?>
 							@foreach ($cart as $c)
 							@foreach ($c->carts as $cart)
-							{{-- {{ $c }} --}}
 							@if ($cart->id_user == Auth::user()->id) 
+							{{-- {{ $c }} --}}
 								<th>{{$no++}}</th>
 								<td>{{ $cart->keranjang2->produk }}</td>
-								<td>{{ $cart->quantity }}</td>
+								<td>{{ $cart->quantity }} pcs</td>
+								<td>
+									<a href="https://api.whatsapp.com/send/?phone=%2B6282311439450&text=Hallo%20kak%20%0ASaya%20mau%20order%20%3A%20%0A{{$cart->keranjang2->produk}}%20jumlah%20{{$cart->quantity}}%20pcs"  type="button"  class="btn btn-primary"><i class="fas fa-check-square"></i></a>
+								</td>
 						</tbody>
+						
 						@endif
 						@endforeach
 						@endforeach
 					</table>
 					</div>
-			</div>
-			<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<button type="button"  class="btn btn-primary">Save changes</button>
 			</div>
 		</div>
 		</div>

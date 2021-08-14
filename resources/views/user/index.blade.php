@@ -163,27 +163,28 @@
 								<th>No</th>
 								<th>Nama</th>
 								<th>Jumlah</th>
+								<th>Order</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php $no=1 ?>
 							@foreach ($cart as $c)
 							@foreach ($c->carts as $cart)
-							{{-- {{ $c }} --}}
 							@if ($cart->id_user == Auth::user()->id) 
+							{{-- {{ $c }} --}}
 								<th>{{$no++}}</th>
 								<td>{{ $cart->keranjang2->produk }}</td>
-								<td>{{ $cart->quantity }}</td>
+								<td>{{ $cart->quantity }} pcs</td>
+								<td>
+									<a href="https://api.whatsapp.com/send/?phone=%2B6282311439450&text=Hallo%20kak%20%0ASaya%20mau%20order%20%3A%20%0A{{$cart->keranjang2->produk}}%20jumlah%20{{$cart->quantity}}%20pcs"  type="button"  class="btn btn-primary"><i class="fas fa-check-square"></i></a>
+								</td>
 						</tbody>
+						
 						@endif
 						@endforeach
 						@endforeach
 					</table>
-					</div>
-			</div>
-			<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<a href="https://bit.ly/3C10Zaf"  type="button"  class="btn btn-primary">Save changes</a>
+				</div>
 			</div>
 		</div>
 		</div>

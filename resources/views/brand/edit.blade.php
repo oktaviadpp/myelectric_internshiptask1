@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Tambah Data Brand
+    Edit Data Brand
 @endsection
 
 @section('content')
