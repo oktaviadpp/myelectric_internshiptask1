@@ -65,6 +65,9 @@ Route::get('/detailartikel/{id}', [App\Http\Controllers\UserController::class, '
 Route::get('/detailproduk/{id}', [App\Http\Controllers\UserController::class, 'produks'])->name('detailproduk');
 //MENAMPILKAN USER ADD TO CART
 Route::post('add_to_cart', 'UserController@addToCart');
+// Route::post('destroycart', 'UserController@destroy');
+// Route::post('/destroy/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('destroy');
+Route::get('/{id}', 'UserController@destroy');
 
 Auth::routes();
 

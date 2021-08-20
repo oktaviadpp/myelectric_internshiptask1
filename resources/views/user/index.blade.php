@@ -105,7 +105,7 @@
 							</ul>
 						</li>
 						<li><a href="contact.html">Contact</a></li>
-						<li class="has-dropdown">
+						{{-- <li class="has-dropdown">
 							<a href=""><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
 							<ul class="dropdown">
 								<li>
@@ -125,28 +125,34 @@
 									
 								</li>
 							</ul>
+						</li> --}}
+						<li>
+							<a href="" data-toggle="modal" data-target="#myModal">
+								Cart
+							</a>
 						</li>
-					</ul>
-				</div>
-				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
-					<ul>
-						<li class="search">
-							<div class="input-group">
-						      <input type="text" placeholder="Search..">
-						      <span class="input-group-btn">
-						        <button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
-						      </span>
-						    </div>
+						<li class="has-dropdown">
+							<a href="{{ route('produkkat.index') }}">Admin</a>
 						</li>
-						<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
-						
 					</ul>
 				</div>
 			</div>
 			
 		</div>
 	</nav>
-  
+	
+	{{-- ALERT MESSAGE --}}
+	@if ($message = Session::get('message'))
+	<div class="alert alert-success d-flex align-items-center" role="alert">
+	  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Success:">
+		<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+	  </svg>
+	  <div>
+		{{ $message }}
+	  </div>
+	</div>
+	@endif
+
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -168,9 +174,9 @@
 						</thead>
 						<tbody>
 							<?php $no=1 ?>
-							@foreach ($cart as $c)
-							@foreach ($c->carts as $cart)
-							@if ($cart->id_user == Auth::user()->id) 
+							{{-- @foreach ($cart as $c) --}}
+							@foreach ($cart as $cart)
+							{{-- @if ($cart->id_user == Auth::user()->id)  --}}
 							{{-- {{ $c }} --}}
 								<th>{{$no++}}</th>
 								<td>{{ $cart->keranjang2->produk }}</td>
@@ -178,11 +184,14 @@
 								<td>
 									<a href="https://api.whatsapp.com/send/?phone=%2B6282311439450&text=Hallo%20kak%20%0ASaya%20mau%20order%20%3A%20%0A{{$cart->keranjang2->produk}}%20jumlah%20{{$cart->quantity}}%20pcs"  type="button"  class="btn btn-primary"><i class="fas fa-check-square"></i></a>
 								</td>
+								<td>
+									<a href="/{{ $cart->id }}">Hapus</a>
+								</td>
 						</tbody>
 						
-						@endif
+						{{-- @endif --}}
 						@endforeach
-						@endforeach
+						{{-- @endforeach --}}
 					</table>
 				</div>
 			</div>

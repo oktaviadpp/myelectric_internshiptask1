@@ -91,113 +91,107 @@
 	
 	<div id="page">
 		
-	<nav class="fh5co-nav" role="navigation">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3 col-xs-2">
-					<div id="fh5co-logo"><a href="index.html">{{ config('app.name') }}</a></div>
-				</div>
-				<div class="col-md-6 col-xs-6 text-center menu-1">
-					<ul>
-						<li class="has-dropdown">
-							<a href="{{ route('index') }}">Home</a>
-						</li>
-						<li><a href="about">About</a></li>
-						<li class="has-dropdown">
-							<a href="">Kategori</a>
-							<ul class="dropdown">
-								<li><a href="ac">Air Conditioner</a></li>
-								<li><a href="laptop">Laptop</a></li>
-								<li><a href="audio">Audio</a></li>
-								<li><a href="kulkas">Kulkas</a></li>
-								<li><a href="tv">Televisi</a></li>
-							</ul>
-						</li>
-						<li><a href="contact.html">Contact</a></li>
-						<li class="has-dropdown">
-							<a href=""><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
-							<ul class="dropdown">
-								<li>
-									<a class="dropdown-item" href="{{ route('logout') }}"
-								   onclick="event.preventDefault();
-												 document.getElementById('logout-form').submit();">
-									{{ __('Logout') }}
-									</a>
-									<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-										@csrf
-									</form>
-								</li>
-								<li>
-									<a href="" data-toggle="modal" data-target="#myModal">
-										Cart
-									</a>
-									
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
-					<ul>
-						<li class="search">
-							<div class="input-group">
-						      <input type="text" placeholder="Search..">
-						      <span class="input-group-btn">
-						        <button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
-						      </span>
-						    </div>
-						</li>
-						<li class="shopping-cart"><a href="#" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
-						
-					</ul>
-				</div>
-			</div>
-			
-		</div>
-	</nav>
-  
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title" id="myModalLabel">Keranjang Belanja</h4>
-			</div>
-			<div class="modal-body">
-				<div class="p-6 bg-white border-b border-gray-200">
-					<table style="width: 100%">
-						<thead>
-							<tr>
-								<th>No</th>
-								<th>Nama</th>
-								<th>Jumlah</th>
-								<th>Order</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php $no=1 ?>
-							@foreach ($cart as $c)
-							@foreach ($c->carts as $cart)
-							@if ($cart->id_user == Auth::user()->id) 
-							{{-- {{ $c }} --}}
-								<th>{{$no++}}</th>
-								<td>{{ $cart->keranjang2->produk }}</td>
-								<td>{{ $cart->quantity }} pcs</td>
-								<td>
-									<a href="https://api.whatsapp.com/send/?phone=%2B6282311439450&text=Hallo%20kak%20%0ASaya%20mau%20order%20%3A%20%0A{{$cart->keranjang2->produk}}%20jumlah%20{{$cart->quantity}}%20pcs"  type="button"  class="btn btn-primary"><i class="fas fa-check-square"></i></a>
-								</td>
-						</tbody>
-						
-						@endif
-						@endforeach
-						@endforeach
-					</table>
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-xs-2">
+						<div id="fh5co-logo"><a href="index.html">{{ config('app.name') }}</a></div>
 					</div>
+					<div class="col-md-6 col-xs-6 text-center menu-1">
+						<ul>
+							<li class="has-dropdown">
+								<a href="{{ route('index') }}">Home</a>
+							</li>
+							<li><a href="about">About</a></li>
+							<li class="has-dropdown">
+								<a href="">Kategori</a>
+								<ul class="dropdown">
+									<li><a href="ac">Air Conditioner</a></li>
+									<li><a href="laptop">Laptop</a></li>
+									<li><a href="audio">Audio</a></li>
+									<li><a href="kulkas">Kulkas</a></li>
+									<li><a href="tv">Televisi</a></li>
+								</ul>
+							</li>
+							<li><a href="contact.html">Contact</a></li>
+							{{-- <li class="has-dropdown">
+								<a href=""><i class="fas fa-user"></i> {{ Auth::user()->name }}</a>
+								<ul class="dropdown">
+									<li>
+										<a class="dropdown-item" href="{{ route('logout') }}"
+									   onclick="event.preventDefault();
+													 document.getElementById('logout-form').submit();">
+										{{ __('Logout') }}
+										</a>
+										<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+											@csrf
+										</form>
+									</li>
+									<li>
+										<a href="" data-toggle="modal" data-target="#myModal">
+											Cart
+										</a>
+										
+									</li>
+								</ul>
+							</li> --}}
+							<li>
+								<a href="" data-toggle="modal" data-target="#myModal">
+									Cart
+								</a>
+							</li>
+							<li class="has-dropdown">
+								<a href="{{ route('produkkat.index') }}">Admin</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		</nav>
+	  
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Keranjang Belanja</h4>
+				</div>
+				<div class="modal-body">
+					<div class="p-6 bg-white border-b border-gray-200">
+						<table style="width: 100%">
+							<thead>
+								<tr>
+									<th>No</th>
+									<th>Nama</th>
+									<th>Jumlah</th>
+									<th>Order</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php $no=1 ?>
+								{{-- @foreach ($cart as $c) --}}
+								@foreach ($cart as $cart)
+								{{-- @if ($cart->id_user == Auth::user()->id)  --}}
+								{{-- {{ $c }} --}}
+									<th>{{$no++}}</th>
+									<td>{{ $cart->keranjang2->produk }}</td>
+									<td>{{ $cart->quantity }} pcs</td>
+									<td>
+										<a href="https://api.whatsapp.com/send/?phone=%2B6282311439450&text=Hallo%20kak%20%0ASaya%20mau%20order%20%3A%20%0A{{$cart->keranjang2->produk}}%20jumlah%20{{$cart->quantity}}%20pcs"  type="button"  class="btn btn-primary"><i class="fas fa-check-square"></i></a>
+									</td>
+							</tbody>
+							
+							{{-- @endif --}}
+							@endforeach
+							{{-- @endforeach --}}
+						</table>
+					</div>
+				</div>
+			</div>
 			</div>
 		</div>
-		</div>
-	</div>
 
 	<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(/css/user/images/banner.png);">
 		<div class="overlay"></div>

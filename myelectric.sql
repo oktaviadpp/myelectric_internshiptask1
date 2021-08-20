@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2021 at 09:02 AM
+-- Generation Time: Aug 16, 2021 at 10:20 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -115,7 +115,7 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `brand`, `slug`, `gambar`, `created_at`, `updated_at`) VALUES
-(1, 'LG', 'lg', 'ej9fxSff2XEhiVphO0Z5hLSu3aWvbbpFN9d4LY9s.jpg', NULL, '2021-07-05 20:33:16'),
+(1, 'LG', 'lgggg', '9995ebjWvlPyX5BkoZqN1OFAadTpYOUXWpLC9VTt.jpg', NULL, '2021-08-13 18:57:01'),
 (2, 'Acer', 'acer', 'FdVTvPdIWUMgjMOVNO48IBfwFpz216XKbeXpgYMs.jpg', '2021-07-05 19:57:20', '2021-07-05 20:18:28'),
 (3, 'JBL', 'jbl', 'NVaKFHPg7ZTUosmlYu36eNuCMAU5QsV002D2u693.png', '2021-07-05 20:16:23', '2021-07-05 20:16:23'),
 (8, 'Polytron', 'polytron', 'E4a0dJ6T1cWzCu1EZjO4JoiHOkuOwfHV9gKQUUu1.png', '2021-07-08 05:46:33', '2021-07-08 05:46:33'),
@@ -142,29 +142,11 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `id_user`, `id_produk`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 0, 3, 0, '2021-07-23 20:35:38', '2021-07-23 20:35:38'),
-(2, 0, 3, 0, '2021-07-23 20:36:28', '2021-07-23 20:36:28'),
-(3, 0, 3, 0, '2021-07-23 20:37:27', '2021-07-23 20:37:27'),
-(4, 0, 7, 0, '2021-07-23 21:12:02', '2021-07-23 21:12:02'),
-(5, 0, 7, 0, '2021-07-23 21:13:48', '2021-07-23 21:13:48'),
-(6, 0, 5, 0, '2021-07-23 21:14:03', '2021-07-23 21:14:03'),
-(7, 0, 3, 0, '2021-07-23 21:46:01', '2021-07-23 21:46:01'),
-(8, 0, 7, 0, '2021-07-23 21:46:23', '2021-07-23 21:46:23'),
-(9, 3, 3, 0, '2021-07-23 21:49:42', '2021-07-23 21:49:42'),
-(10, 3, 7, 0, '2021-07-23 23:50:01', '2021-07-23 23:50:01'),
-(11, 3, 3, 0, '2021-07-23 23:54:14', '2021-07-23 23:54:14'),
 (12, 4, 5, 0, '2021-07-24 00:37:22', '2021-07-24 00:37:22'),
 (13, 4, 5, 0, '2021-07-24 01:13:44', '2021-07-24 01:13:44'),
-(14, 1, 4, 0, '2021-07-24 01:29:57', '2021-07-24 01:29:57'),
-(15, 3, 7, 0, '2021-07-25 02:19:34', '2021-07-25 02:19:34'),
-(16, 3, 7, 0, '2021-07-25 02:31:06', '2021-07-25 02:31:06'),
-(17, 3, 7, 0, '2021-07-25 02:32:40', '2021-07-25 02:32:40'),
-(18, 3, 3, 0, '2021-07-25 02:35:12', '2021-07-25 02:35:12'),
-(19, 1, 5, 0, '2021-07-30 19:43:13', '2021-07-30 19:43:13'),
 (32, 1, 3, 2, '2021-07-30 22:45:21', '2021-07-30 22:45:21'),
-(33, 1, 4, 4, '2021-07-30 22:47:09', '2021-07-30 22:47:09'),
-(34, 1, 6, 3, '2021-07-30 22:55:20', '2021-07-30 22:55:20'),
-(35, 1, 4, 0, '2021-08-03 23:27:34', '2021-08-03 23:27:34');
+(36, 3, 4, 1, '2021-08-12 22:50:48', '2021-08-12 22:50:48'),
+(37, 3, 5, 2, '2021-08-12 22:57:00', '2021-08-12 22:57:00');
 
 -- --------------------------------------------------------
 
@@ -247,7 +229,15 @@ INSERT INTO `produkkats` (`id`, `kategori`, `slug`, `created_at`, `updated_at`) 
 (7, 'Kulkas', 'kulkas', '2021-07-05 08:58:50', '2021-07-05 08:58:50'),
 (8, 'Laptop', 'laptop', '2021-07-05 08:58:59', '2021-07-05 08:58:59'),
 (9, 'Televisi', 'televisi', '2021-07-05 08:59:10', '2021-07-05 08:59:10'),
-(10, 'Air Conditioner', 'air-conditioner', '2021-07-05 08:59:30', '2021-07-05 08:59:30');
+(10, 'Air Conditioner', 'air-conditioner', '2021-07-05 08:59:30', '2021-07-05 08:59:30'),
+(12, 'apa aja', 'a', '2021-08-12 22:28:42', '2021-08-12 22:28:42'),
+(13, 'apa aja', 'a', '2021-08-12 22:32:43', '2021-08-12 22:32:43'),
+(14, 'apa', 'a', '2021-08-12 22:34:55', '2021-08-12 22:34:55'),
+(15, 'apa aja', 'a', '2021-08-12 22:35:46', '2021-08-12 22:35:46'),
+(16, 'apa aja', 'a', '2021-08-12 22:36:28', '2021-08-12 22:36:28'),
+(17, 'apa aja', 'a', '2021-08-12 22:36:45', '2021-08-12 22:36:45'),
+(18, 'apa aja', 'a', '2021-08-12 22:37:43', '2021-08-12 22:37:43'),
+(19, 'apa aja', 'a', '2021-08-12 22:42:19', '2021-08-12 22:42:19');
 
 -- --------------------------------------------------------
 
@@ -352,17 +342,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'oktavia', 'oktavia@gmail.com', NULL, '$2y$10$o6Hti5Y2vsYhwUB6EHC.KOvWUuUfrj0vK.kmXMC0fhT8FvC1/VBve', NULL, '2021-07-23 06:03:23', '2021-07-23 06:03:23'),
-(2, 'Oktavia Dwi Putri Permatasari', 'oktaviadpp@gmai.com', NULL, '$2y$10$2GpAj7k4rlts1.ozhsebR.dZpJtjrouFMl2etPiWBav2Faf5b4Fvq', NULL, '2021-07-23 09:34:35', '2021-07-23 09:34:35'),
-(3, 'Admin', 'admin@gmail.com', NULL, '$2y$10$n7DIcA2IKCsw71qGasn9cOm27fExcZp2SPvKXx/jxIPdpZNezm9pK', NULL, '2021-07-23 09:39:45', '2021-07-23 09:39:45'),
-(4, 'halo', 'halo@gmail.com', NULL, '$2y$10$pO4gnTsUdBhA7mq82HbjRucG/2hXWWjunQ7m4gOE3mertafZmdGv6', NULL, '2021-07-23 09:42:14', '2021-07-23 09:42:14'),
-(5, 'haha', 'haha@gmail.com', NULL, '$2y$10$Ox3hh5.2lpbdwFo.jWPkiO.WYo1m1S4bqJtQr6FcfDTIHfsvBFcje', NULL, '2021-07-23 09:51:33', '2021-07-23 09:51:33'),
-(6, 'apaya', 'apaya@gmail.com', NULL, '$2y$10$NntBGjt9lUZsHHHOqJuQ2e.b.rajY8GvXGpZd/NJp8yWMVrbH17zy', NULL, '2021-07-23 09:54:21', '2021-07-23 09:54:21'),
-(7, 'user', 'user@gmail.com', NULL, '$2y$10$wSTL/YAl54Gm6/.daSvCmOtREblVykFMarMJ1.MhI/IoxDE.PFy5G', NULL, '2021-07-23 09:59:38', '2021-07-23 09:59:38'),
-(8, 'coba', 'coba@gmail.com', NULL, '$2y$10$UmyS9DfsLxp.z/s13h27pOF.P2YhBaThBmYhqZAy5ayiQ0SB2rc3C', NULL, '2021-07-23 10:01:01', '2021-07-23 10:01:01'),
-(9, 'anggota', 'anggota@gmail.com', NULL, '$2y$10$gjmJn3dI2vYU5RKlNr3.6.EI6bg65La7aJKCUOzJZcqExg0Tl6wlu', NULL, '2021-07-23 10:02:43', '2021-07-23 10:02:43'),
-(10, 'okta', 'okta@gmail.com', NULL, '$2y$10$QpFkC57yJyS4n0kULaZ.lOnVdY6TVKNzIxD09A//yAR.cTJimD6jW', NULL, '2021-07-23 10:04:13', '2021-07-23 10:04:13'),
-(11, 'oktaviadpp', 'oktaviadpp@gmail.com', NULL, '$2y$10$7FJMK1/mNpQmcKKANKyH0u3dRB7QeFrVjSCgEkHzgIWogwNwlIiYW', NULL, '2021-07-23 10:11:44', '2021-07-23 10:11:44'),
-(12, 'oktaa', 'oktaa@gmail.com', NULL, '$2y$10$jM/LYRbMhAL7O8cVkC0NFulHX9nZosw/.pSyyjJkMsYcIfhRBktpK', NULL, '2021-07-23 10:17:13', '2021-07-23 10:17:13');
+(3, 'Admin', 'admin@gmail.com', NULL, '$2y$10$n7DIcA2IKCsw71qGasn9cOm27fExcZp2SPvKXx/jxIPdpZNezm9pK', NULL, '2021-07-23 09:39:45', '2021-07-23 09:39:45');
 
 --
 -- Indexes for dumped tables
@@ -480,7 +460,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -498,7 +478,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `produkkats`
 --
 ALTER TABLE `produkkats`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `produks`

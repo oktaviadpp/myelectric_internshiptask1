@@ -33,7 +33,7 @@
 								<form action="/add_to_cart" method="POST">
 									@csrf
 									<input type="hidden" name="id_produk" value="{{ $produks->id}}">
-									<input type="hidden" name="id_user" value="{{ Auth::user()->id}}">
+									{{-- <input type="hidden" name="id_user" value="{{ Auth::user()->id}}"> --}}
 									{{-- TOMBOL increase decrease  --}}
 									<div class="quantity">
 										<input type="number" value="0" name="quantity" >

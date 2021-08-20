@@ -16,10 +16,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     public function index()
     {
         $sliders = Slider::all();
@@ -30,6 +30,7 @@ class UserController extends Controller
         $sosmed = Sosmed::find(4);
         $sosmed2 = Sosmed::all();
         $about = AboutUs::all();
+        $cart = Cart::all();
         // $carts = Cart::all();
         // return view('user.index', compact('user'), [
         //     'sliders' => $sliders,
@@ -38,7 +39,7 @@ class UserController extends Controller
         //     'brands' => $brands,
         //     'carts' => $carts
         // ]);
-        $cart = User::with(['carts'])->get();
+        // $cart = User::with(['carts'])->get();
         // $keranjang = Produk::with(['keranjang'])->get();
         return view('user.index', [
             'sliders' => $sliders,
@@ -143,7 +144,8 @@ class UserController extends Controller
     public function produks($id)
     {
         $produks = Produk::where('id', $id)->first();
-        $cart = User::with(['carts'])->get();
+        // $cart = User::with(['carts'])->get();
+        $cart = Cart::all();
         $sosmed = Sosmed::all();
         return view('user.detailproduk', [
             'produks' => $produks,
@@ -156,14 +158,23 @@ class UserController extends Controller
     public function addToCart(Request $request)
     {
         $cart = new Cart;
-        $cart->id_user = $request->id_user;
+        // $cart->id_user = $request->id_user;
         $cart->id_produk = $request->id_produk;
         $cart->quantity = $request->quantity;
         $cart->save();
-        $cart = Cart::with('keranjang2');
+        // $cart = Cart::with('keranjang2');
         return redirect('/');
     }
 
+    //FUNCTION HAPUS CART
+    public function destroy($id)
+    {
+        // menghapus data pegawai berdasarkan id yang dipilih
+        $cart = Cart::where('id', $id)->delete();
+
+        // alihkan halaman ke halaman pegawai
+        return redirect('/');
+    }
     //FUNCTION MENAMPILKAN ABOUT US
     public function about()
     {
