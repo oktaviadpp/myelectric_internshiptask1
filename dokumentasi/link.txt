@@ -4,3 +4,5 @@
 myelectric = https://github.com/oktaviadpp/myelectric_internshiptask1
 	- database : MySQL
 	- framework : Laravel 8
+
+coba
