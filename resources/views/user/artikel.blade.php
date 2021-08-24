@@ -28,7 +28,9 @@
                     {{-- @endforeach --}}
                 </div>
                 <div class="col-md-6">
-                    <img class="img-responsive" src="{{ Storage::url('public/gambar/').$artikels->gambar }}" alt="about">
+                    {{-- <img class="img-responsive" src="{{ Storage::url('public/gambar/').$artikels->gambar }}" alt="about"> --}}
+                    <img class="img-responsive" src="/gambar/{{$artikels->gambar}}" alt="about">
+                    {{-- <img src="/gambar/{{$pro->gambar}}" class="rounded" style="width: 150px"> --}}
                 </div>
             </div>
         </div>

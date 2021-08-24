@@ -17,7 +17,7 @@ class Produk extends Model
     {
         return $this->belongsTo(Produkkat::class, 'id_kategori');
     }
-    public function brands()
+    public function brand()
     {
         return $this->belongsTo(Brand::class, 'id_brand');
     }

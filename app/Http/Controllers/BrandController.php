@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class BrandController extends Controller
 {
@@ -55,13 +55,16 @@ class BrandController extends Controller
         ]);
 
         //upload gambar
-        $gambar = $request->file('gambar');
-        $gambar->storeAs('public/gambar', $gambar->hashName());
+        // $gambar = $request->file('gambar');
+        // $gambar->storeAs('public/gambar', $gambar->hashName());
+
+        $gambar = time() . '-' . $request->gambar->getClientOriginalName();
+        $request->gambar->move('gambar', $gambar);
 
         $brands = Brand::create([
             'brand' => $request->brand,
             'slug' => $request->slug,
-            'gambar'     => $gambar->hashName()
+            'gambar' => $gambar
         ]);
 
         // FLASH MESSAGE
@@ -102,6 +105,7 @@ class BrandController extends Controller
         $this->validate($request, [
             'brand' => 'required',
             'slug' => 'required',
+            'gambar' => 'mimes:jpg,jpeg,png',
         ]);
 
         $brand = Brand::findOrFail($brand->id);
@@ -115,14 +119,20 @@ class BrandController extends Controller
         } else {
 
             //hapus old image
-            Storage::disk('local')->delete('public/gambar/' . $brand->gambar);
+            // Storage::disk('local')->delete('public/gambar/' . $brand->gambar);
+            File::delete('gambar/' . $brand->gambar);
 
             //upload new gambar
-            $gambar = $request->file('gambar');
-            $gambar->storeAs('public/gambar', $gambar->hashName());
+            // $gambar = $request->file('gambar');
+            // $gambar->storeAs('public/gambar', $gambar->hashName());
+
+            $gambar = time() . '-' . $request->gambar->getClientOriginalName();
+            $request->gambar->move('gambar', $gambar);
+
+            $brand['gambar'] = $gambar;
 
             $brand->update([
-                'gambar'     => $gambar->hashName(),
+                // 'gambar'     => $gambar->hashName(),
                 'brand'     => $request->brand,
                 'slug'   => $request->slug
             ]);
@@ -140,7 +150,7 @@ class BrandController extends Controller
     public function destroy($id)
     {
         $brand = Brand::findOrFail($id);
-        Storage::disk('local')->delete('public/gambar/' . $brand->gambar);
+        File::delete('gambar/' . $brand->gambar);
         $brand->delete();
 
         // FLASH MESSAGE

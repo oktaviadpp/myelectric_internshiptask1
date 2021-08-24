@@ -39,7 +39,7 @@ class UserController extends Controller
         //     'brands' => $brands,
         //     'carts' => $carts
         // ]);
-        // $cart = User::with(['carts'])->get();
+        // $cart = Cart::all();
         // $keranjang = Produk::with(['keranjang'])->get();
         return view('user.index', [
             'sliders' => $sliders,
@@ -60,7 +60,7 @@ class UserController extends Controller
     public function audio()
     {
         $produks = Produk::whereid_kategori('1')->get();
-        $cart = User::with(['carts'])->get();
+        $cart = Cart::all();
         $sosmed = Sosmed::all();
         return view('user.audio', [
             'produks' => $produks,
@@ -72,7 +72,7 @@ class UserController extends Controller
     public function kulkas()
     {
         $produks = Produk::whereid_kategori('7')->get();
-        $cart = User::with(['carts'])->get();
+        $cart = Cart::all();
         $sosmed = Sosmed::all();
         return view('user.kulkas', [
             'produks' => $produks,
@@ -84,7 +84,7 @@ class UserController extends Controller
     public function laptop()
     {
         $produks = Produk::whereid_kategori('8')->get();
-        $cart = User::with(['carts'])->get();
+        $cart = Cart::all();
         $sosmed = Sosmed::all();
         return view('user.laptop', [
             'produks' => $produks,
@@ -96,7 +96,7 @@ class UserController extends Controller
     public function tv()
     {
         $produks = Produk::whereid_kategori('9')->get();
-        $cart = User::with(['carts'])->get();
+        $cart = Cart::all();
         $sosmed = Sosmed::all();
         return view('user.tv', [
             'produks' => $produks,
@@ -108,7 +108,7 @@ class UserController extends Controller
     public function ac()
     {
         $produks = Produk::whereid_kategori('10')->get();
-        $cart = User::with(['carts'])->get();
+        $cart = Cart::all();
         $sosmed = Sosmed::all();
         return view('user.ac', [
             'produks' => $produks,
@@ -131,7 +131,7 @@ class UserController extends Controller
         // return view('user.artikel', ['artikels' => $artikels]);
         // return $artikels->judul;
         $artikels = Artikel::where('id', $id)->first();
-        $cart = User::with(['carts'])->get();
+        $cart = Cart::all();
         $sosmed = Sosmed::all();
         return view('user.artikel', [
             'artikels' => $artikels,
@@ -144,7 +144,7 @@ class UserController extends Controller
     public function produks($id)
     {
         $produks = Produk::where('id', $id)->first();
-        // $cart = User::with(['carts'])->get();
+        // $cart = Cart::all();
         $cart = Cart::all();
         $sosmed = Sosmed::all();
         return view('user.detailproduk', [
@@ -167,20 +167,20 @@ class UserController extends Controller
     }
 
     //FUNCTION HAPUS CART
-    public function destroy($id)
-    {
-        // menghapus data pegawai berdasarkan id yang dipilih
-        $cart = Cart::where('id', $id)->delete();
+    // public function destroy($id)
+    // {
+    //     // menghapus data pegawai berdasarkan id yang dipilih
+    //     $cart = Cart::where('id', $id)->delete();
 
-        // alihkan halaman ke halaman pegawai
-        return redirect('/');
-    }
+    //     // alihkan halaman ke halaman pegawai
+    //     return redirect('/');
+    // }
     //FUNCTION MENAMPILKAN ABOUT US
     public function about()
     {
         $about_us = AboutUs::all();
         $sosmed = Sosmed::all();
-        $cart = User::with(['carts'])->get();
+        $cart = Cart::all();
         return view('user.about', [
             'about_us' => $about_us,
             'sosmed' => $sosmed,

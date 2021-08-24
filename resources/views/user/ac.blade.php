@@ -15,7 +15,8 @@
 				@foreach ($produks as $pro)
 				<div class="col-md-4 text-center animate-box">
 					<div class="product">
-						<div class="product-grid" style="background-image:url({{ Storage::url('public/gambar/').$pro->gambar }});">
+						<div class="product-grid" style="background-image:url(/gambar/{{$pro->gambar}});">
+						{{-- <div class="product-grid" style="background-image:url({{ Storage::url('public/gambar/').$pro->gambar }});"> --}}
 							<div class="inner">
 								<p>
 									<a href="{{ route('detailproduk', $pro->id) }}" class="icon"><i class="icon-shopping-cart"></i></a>

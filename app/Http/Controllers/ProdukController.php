@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Produk;
 use App\Models\Produkkat;
 use App\Models\Brand;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+// use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -19,11 +20,11 @@ class ProdukController extends Controller
     {
         //jika data yg dicari ADA 
         if ($request) {
-            $produks = Produk::with('produkkats', 'brands')->where('produk', 'like', '%' . $request->search . '%')->paginate(3);
+            $produks = Produk::with('produkkats', 'brand')->where('produk', 'like', '%' . $request->search . '%')->paginate(3);
 
             //jika data ygg dicari TIDAK ADA
         } else {
-            $produks = Produk::with('produkkats', 'brands')->paginate(3);
+            $produks = Produk::with('produkkats', 'brand')->paginate(3);
         }
 
         return view('produk.index', [
@@ -70,8 +71,10 @@ class ProdukController extends Controller
         ]);
 
         //upload gambar
-        $gambar = $request->file('gambar');
-        $gambar->storeAs('public/gambar', $gambar->hashName());
+        // $gambar = $request->file('gambar');
+        // $gambar->storeAs('public/gambar', $gambar->hashName());
+        $gambar = time() . '-' . $request->gambar->getClientOriginalName();
+        $request->gambar->move('gambar', $gambar);
 
         $produks = Produk::create([
             'id_kategori' => $request->kategori,
@@ -81,7 +84,7 @@ class ProdukController extends Controller
             'deskripsi' => $request->deskripsi,
             'keterangan' => $request->keterangan,
             'stock' => $request->stock,
-            'gambar'     => $gambar->hashName()
+            'gambar'     => $gambar
         ]);
 
         // FLASH MESSAGE
@@ -128,7 +131,8 @@ class ProdukController extends Controller
             'harga' => 'required',
             'deskripsi' => 'required',
             'keterangan' => 'required',
-            'stock' => 'required'
+            'stock' => 'required',
+            'gambar' => 'mimes:jpg,jpeg,png'
         ]);
 
         $produk = Produk::findOrFail($produk->id);
@@ -147,14 +151,18 @@ class ProdukController extends Controller
         } else {
 
             //hapus old image
-            Storage::disk('local')->delete('public/gambar/' . $produk->gambar);
+            // Storage::disk('local')->delete('public/gambar/' . $produk->gambar);
+            File::delete('gambar/' . $produk->gambar);
 
             //upload new gambar
-            $gambar = $request->file('gambar');
-            $gambar->storeAs('public/gambar', $gambar->hashName());
+            // $gambar = $request->file('gambar');
+            // $gambar->storeAs('public/gambar', $gambar->hashName());
+            $gambar = time() . '-' . $request->gambar->getClientOriginalName();
+            $request->gambar->move('gambar', $gambar);
+            $produk['gambar'] = $gambar;
 
             $produk->update([
-                'gambar'     => $gambar->hashName(),
+                // 'gambar'     => $gambar->hashName(),
                 'id_kategori'     => $request->kategori,
                 'id_brand'     => $request->brand,
                 'produk'     => $request->produk,
@@ -177,7 +185,7 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         $produk = Produk::findOrFail($id);
-        Storage::disk('local')->delete('public/gambar/' . $produk->gambar);
+        File::delete('gambar/' . $produk->gambar);
         $produk->delete();
 
         // FLASH MESSAGE

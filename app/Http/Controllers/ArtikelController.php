@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Artikel;
 use App\Models\Artikelkat;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class ArtikelController extends Controller
 {
@@ -64,8 +64,11 @@ class ArtikelController extends Controller
         ]);
 
         //upload gambar
-        $gambar = $request->file('gambar');
-        $gambar->storeAs('public/gambar', $gambar->hashName());
+        // $gambar = $request->file('gambar');
+        // $gambar->storeAs('public/gambar', $gambar->hashName());
+
+        $gambar = time() . '-' . $request->gambar->getClientOriginalName();
+        $request->gambar->move('gambar', $gambar);
 
         $artikel = Artikel::create([
             'id_kategori' => $request->kategori,
@@ -73,7 +76,7 @@ class ArtikelController extends Controller
             'kutipan' => $request->kutipan,
             'isi' => $request->isi,
             'penulis' => $request->penulis,
-            'gambar' => $gambar->hashName()
+            'gambar' => $gambar
         ]);
 
         // FLASH MESSAGE
@@ -118,6 +121,7 @@ class ArtikelController extends Controller
             'kutipan' => 'required',
             'isi' => 'required',
             'penulis' => 'required',
+            'gambar' => 'mimes:jpg,jpeg,png',
         ]);
 
         $artikel = Artikel::findOrFail($artikel->id);
@@ -134,14 +138,18 @@ class ArtikelController extends Controller
         } else {
 
             //hapus old image
-            Storage::disk('local')->delete('public/gambar/' . $artikel->gambar);
+            // Storage::disk('local')->delete('public/gambar/' . $artikel->gambar);
+            File::delete('gambar/' . $artikel->gambar);
 
             //upload new gambar
-            $gambar = $request->file('gambar');
-            $gambar->storeAs('public/gambar', $gambar->hashName());
+            // $gambar = $request->file('gambar');
+            // $gambar->storeAs('public/gambar', $gambar->hashName());
+            $gambar = time() . '-' . $request->gambar->getClientOriginalName();
+            $request->gambar->move('gambar', $gambar);
+            $artikel['gambar'] = $gambar;
 
             $artikel->update([
-                'gambar'     => $gambar->hashName(),
+                // 'gambar'     => $gambar->hashName(),
                 'id_kategori'     => $request->kategori,
                 'judul'     => $request->judul,
                 'kutipan'     => $request->kutipan,
@@ -162,7 +170,8 @@ class ArtikelController extends Controller
     public function destroy($id)
     {
         $artikel = Artikel::findOrFail($id);
-        Storage::disk('local')->delete('public/gambar/' . $artikel->gambar);
+        // Storage::disk('local')->delete('public/gambar/' . $artikel->gambar);
+        File::delete('gambar/' . $artikel->gambar);
         $artikel->delete();
 
         // FLASH MESSAGE

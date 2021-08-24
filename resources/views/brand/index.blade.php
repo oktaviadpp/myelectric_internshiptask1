@@ -59,7 +59,8 @@
                         <td>{{ $b->brand }}</td>
                         <td>{{ $b->slug }}</td>
                         <td>
-                            <img src="{{ Storage::url('public/gambar/').$b->gambar }}" class="rounded" style="width: 150px">
+                            <!--<img src="{{ Storage::url('public/gambar/').$b->gambar }}" class="rounded" style="width: 150px">-->
+                            <img src="/gambar/{{$b->gambar}}" class="rounded" style="width: 150px">
                         </td>
                         <td>
                           <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('brand.destroy', $b->id) }}" method="POST">

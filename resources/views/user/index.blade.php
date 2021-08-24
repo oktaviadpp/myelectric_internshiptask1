@@ -140,18 +140,6 @@
 			
 		</div>
 	</nav>
-	
-	{{-- ALERT MESSAGE --}}
-	@if ($message = Session::get('message'))
-	<div class="alert alert-success d-flex align-items-center" role="alert">
-	  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Success:">
-		<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-	  </svg>
-	  <div>
-		{{ $message }}
-	  </div>
-	</div>
-	@endif
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -184,9 +172,6 @@
 								<td>
 									<a href="https://api.whatsapp.com/send/?phone=%2B6282311439450&text=Hallo%20kak%20%0ASaya%20mau%20order%20%3A%20%0A{{$cart->keranjang2->produk}}%20jumlah%20{{$cart->quantity}}%20pcs"  type="button"  class="btn btn-primary"><i class="fas fa-check-square"></i></a>
 								</td>
-								<td>
-									<a href="/{{ $cart->id }}">Hapus</a>
-								</td>
 						</tbody>
 						
 						{{-- @endif --}}
@@ -204,7 +189,8 @@
 		<div class="carousel-inner">
 			@foreach ($sliders as $key => $slide)
 			<div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-				<img src="{{ Storage::url('public/gambar/').$slide->gambar }}"class="d-block w-100" alt="...">
+				<img src="/gambar/{{$slide->gambar}}"class="d-block w-100" alt="...">
+				{{-- <img src="{{ Storage::url('public/gambar/').$slide->gambar }}"class="d-block w-100" alt="..."> --}}
 			</div>
 		 	@endforeach
 		</div>
@@ -231,7 +217,7 @@
 				@foreach ($produks as $pro)
 				<div class="col-md-4 text-center animate-box">
 					<div class="product">
-						<div class="product-grid" style="background-image:url({{ Storage::url('public/gambar/').$pro->gambar }});">
+						<div class="product-grid" style="background-image:url(/gambar/{{$pro->gambar}});">
 							<div class="inner">
 								<p>
 									<a href="{{ route('detailproduk', $pro->id) }}" class="icon"><i class="icon-shopping-cart"></i></a>
@@ -263,7 +249,7 @@
 			<div class="col-md-4">
 				<div class="card" style="width: 100%; min-height: 100%;">
 					<center>
-					<img src="{{ Storage::url('public/gambar/').$art->gambar }}" style="height:200px; width:100%;" class="card-img-top-center" alt="...">
+					<img src="/gambar/{{$art->gambar}}" style="height:200px; width:100%;" class="card-img-top-center" alt="...">
 					</center>
 					<div class="card-body">
 					  <h5 class="card-title"><b>{{ $art->judul }}</b> <br><br>

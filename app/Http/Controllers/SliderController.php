@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Slider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class SliderController extends Controller
 {
@@ -45,12 +45,14 @@ class SliderController extends Controller
         ]);
 
         //upload gambar
-        $gambar = $request->file('gambar');
-        $gambar->storeAs('public/gambar', $gambar->hashName());
+        // $gambar = $request->file('gambar');
+        // $gambar->storeAs('public/gambar', $gambar->hashName());
+        $gambar = time() . '-' . $request->gambar->getClientOriginalName();
+        $request->gambar->move('gambar', $gambar);
 
         $sliders = Slider::create([
             'judul' => $request->judul,
-            'gambar'     => $gambar->hashName()
+            'gambar'     => $gambar
         ]);
 
         // FLASH MESSAGE
@@ -89,7 +91,8 @@ class SliderController extends Controller
     public function update(Request $request, Slider $slider)
     {
         $this->validate($request, [
-            'judul' => 'required'
+            'judul' => 'required',
+            'gambar' => 'mimes:jpg,jpeg,png',
         ]);
 
         $slider = Slider::findOrFail($slider->id);
@@ -102,14 +105,18 @@ class SliderController extends Controller
         } else {
 
             //hapus old image
-            Storage::disk('local')->delete('public/gambar/' . $slider->gambar);
+            // Storage::disk('local')->delete('public/gambar/' . $slider->gambar);
+            File::delete('gambar/' . $slider->gambar);
 
             //upload new gambar
-            $gambar = $request->file('gambar');
-            $gambar->storeAs('public/gambar', $gambar->hashName());
+            // $gambar = $request->file('gambar');
+            // $gambar->storeAs('public/gambar', $gambar->hashName());
+            $gambar = time() . '-' . $request->gambar->getClientOriginalName();
+            $request->gambar->move('gambar', $gambar);
+            $slider['gambar'] = $gambar;
 
             $slider->update([
-                'gambar'     => $gambar->hashName(),
+                // 'gambar'     => $gambar->hashName(),
                 'judul'     => $request->judul
             ]);
         }
@@ -126,7 +133,7 @@ class SliderController extends Controller
     public function destroy($id)
     {
         $slider = Slider::findOrFail($id);
-        Storage::disk('local')->delete('public/gambar/' . $slider->gambar);
+        File::delete('gambar/' . $slider->gambar);
         $slider->delete();
 
         // FLASH MESSAGE

@@ -61,14 +61,14 @@
                       {{-- firstItem digunakan untuk mengurutkan nomor --}}
                       <th scope="row">{{ $produks->firstItem() + $key }}</th>
                         <td>{{$pro->produkkats->kategori}}</td>
-                        <td>{{ $pro->brands->brand}}</td>
+                        <td>{{ $pro->brand->brand}}</td>
                         <td>{{ $pro->produk}}</td>
                         <td>{{ $pro->harga}}</td>
                         <td>{!!$pro->deskripsi!!}</td>
                         <td>{{ $pro->keterangan}}</td>
                         <td>{{ $pro->stock}}</td>
                         <td>
-                            <img src="{{ Storage::url('public/gambar/').$pro->gambar }}" class="rounded" style="width: 150px">
+                          <img src="/gambar/{{$pro->gambar}}" class="rounded" style="width: 150px">
                         </td>
                         <td>
                           <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('produk.destroy', $pro->id) }}" method="POST">

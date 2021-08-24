@@ -64,7 +64,7 @@
                         <td>{!! $art->isi !!}</td>
                         <td>{{ $art->penulis }}</td>
                         <td>
-                            <img src="{{ Storage::url('public/gambar/').$art->gambar }}" class="rounded" style="width: 150px">
+                          <img src="/gambar/{{$art->gambar}}" class="rounded" style="width: 150px">
                         </td>
                         <td>{{ $art->created_at }}</td>
                         <td>

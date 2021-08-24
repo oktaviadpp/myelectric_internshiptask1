@@ -14,14 +14,16 @@
 						<div class="item">
 							<div class="active text-center">
 								<figure>
-									<img src="{{ Storage::url('public/gambar/').$produks->gambar }}" alt="user">
+									<img src="/gambar/{{$produks->gambar}}" alt="user">
+									{{-- <img src="{{ Storage::url('public/gambar/').$produks->gambar }}" alt="user"> --}}
 								</figure>
 							</div>
 						</div>
 						<div class="item">
 							<div class="active text-center">
 								<figure>
-									<img src="{{ Storage::url('public/gambar/').$produks->gambar }}" alt="user">
+									<img src="/gambar/{{$produks->gambar}}" alt="user">
+									{{-- <img src="{{ Storage::url('public/gambar/').$produks->gambar }}" alt="user"> --}}
 								</figure>
 							</div>
 						</div>
@@ -70,7 +72,7 @@
 										</div>
 										<div class="col-md-6">
 											<h2 class="uppercase">Nama Brand</h2>
-											<p>{{ $produks->brands->brand}}</p>
+											<p>{{ $produks->brand->brand}}</p>
 										</div>
 									</div>
 
